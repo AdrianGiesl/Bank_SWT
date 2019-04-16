@@ -19,18 +19,25 @@ public class Main {
 		shell.setLayout(new FillLayout());
 		shell.setText(I18NHelper.getMessage("main.title"));
 
-//		DataSourceDialog dataSourceDialog = new DataSourceDialog(shell);
-//		
-//		Controller controller = new Controller(dataSourceDialog);
-//		controller.setup();
-		
-		Overview overview = new Overview(shell);
+		DataSourceDialog dataSourceDialog = new DataSourceDialog(shell);
 
-		OverviewController overviewController = new OverviewController(overview);
-		overviewController.setup();
-
+		Controller controller = new Controller(dataSourceDialog);
+		controller.setup();
 		shell.pack();
 		shell.open();
+
+		if (DataSourceDialog.isSelected() == true) {
+			shell.close();
+
+			Overview overview = new Overview(shell);
+
+			OverviewController overviewController = new OverviewController(overview);
+			overviewController.setup();
+			shell.pack();
+			shell.open();
+
+		}
+
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch())
 				display.sleep();

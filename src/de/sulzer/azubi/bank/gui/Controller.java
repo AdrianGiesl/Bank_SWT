@@ -10,58 +10,58 @@ import java.util.Properties;
 import de.sulzer.azubi.bank.business.impl.Source;
 
 public class Controller {
-	
+
 	private static final String SOURCEKEY = "Bank";
 	private DataSourceDialog dataSourceDialog;
-	
+
 	public Controller(DataSourceDialog dataSourceDialog) {
 		this.dataSourceDialog = dataSourceDialog;
 	}
-	
+
 	public void setup() {
 		dataSourceDialog.getComboDataSource().setInput(Source.values());
 		dataSourceDialog.getComboDataSource().setLabelProvider(new SourceProvider());
-		
+
 		provideListener();
 	}
-	
+
 	private void provideListener() {
 		dataSourceDialog.getComboDataSource().addSelectionChangedListener(event -> {
-			
+
 			Properties pp = new Properties();
-			
+
 			File file = getFile();
 			try {
 				loadInProperties(pp, file);
-				
-				pp.setProperty(SOURCEKEY, Source.Raiffeisenbank.name());
-				
+
+				pp.setProperty(SOURCEKEY, Source./*TODO Default DataSource*/.name());
+
 				FileOutputStream outputFile = new FileOutputStream(file);
 				pp.store(outputFile, null);
 				outputFile.close();
-			}catch(IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		});
 	}
-	
-	private static void loadInProperties(Properties pp,File file) throws FileNotFoundException, IOException{
+
+	private static void loadInProperties(Properties pp, File file) throws FileNotFoundException, IOException {
 		FileInputStream inputFile = new FileInputStream(file);
 		pp.load(inputFile);
 		inputFile.close();
 	}
-	
+
 	private static File getFile() {
 		File directory = new File(System.getenv("USERPROFILE") + File.separator + "Bank");
-		if(!directory.exists()) {
+		if (!directory.exists()) {
 			directory.mkdir();
 		}
-		
+
 		File file = new File(directory, "datasource.properties");
-		if(!file.exists()) {
+		if (!file.exists()) {
 			try {
 				file.createNewFile();
-			}catch(IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}

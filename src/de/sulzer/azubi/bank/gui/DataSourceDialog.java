@@ -19,6 +19,7 @@ import de.sulzer.azubi.bank.gui.bundle.I18NHelper;
 public class DataSourceDialog extends Dialog {
 
 	private ComboViewer comboDataSource;
+	private static boolean selected;
 
 	public DataSourceDialog(Shell parentShell) {
 		super(parentShell);
@@ -62,7 +63,7 @@ public class DataSourceDialog extends Dialog {
 	protected void okPressed() {
 		if (isInputValid()) {
 			super.okPressed();
-			
+			selected = true;
 		}
 	}
 
@@ -83,4 +84,9 @@ public class DataSourceDialog extends Dialog {
 	public ComboViewer getComboDataSource() {
 		return comboDataSource;
 	}
+
+	public static boolean isSelected() {
+		return selected;
+	}
+
 }

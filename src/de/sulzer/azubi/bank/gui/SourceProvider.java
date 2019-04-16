@@ -10,7 +10,7 @@ public class SourceProvider extends LabelProvider{
 		if(element instanceof Source) {
 			Source current = (Source) element;
 			
-			return String.valueOf(current.getBank());
+			return String.valueOf(current.);
 		}
 		return null;
 	}
